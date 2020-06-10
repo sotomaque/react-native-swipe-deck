@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Animated } from 'react-native';
+import { View, StyleSheet, Animated, Button } from 'react-native';
 
 /**
  * 
@@ -9,6 +9,8 @@ import { View, StyleSheet, Animated } from 'react-native';
  * 
  */
 const Ball = () => {
+
+    const [reanimate, setReanimate] = React.useState(false)
 
     // initialize position piece of state to be a refrence to an instanciated AnimatedValue (with default values 0,0)
     const [position, setPosition] = React.useState(new Animated.ValueXY(0, 0))
@@ -23,12 +25,28 @@ const Ball = () => {
 
     }, [])
 
+    React.useEffect(() => {
+        if (reanimate) {
+            Animated.spring(position, {
+                toValue: { x: 0, y: 0 }
+            }).start();
+        } else {
+            Animated.spring(position, {
+                toValue: { x: 200, y: 700 }
+            }).start();
+        }
+        
+    }, [reanimate])
+
     // wrap view with animated.view, and pass in style -> position.getLayout()
     // we always animate an animated.view as opposed to a primitive view component
     return (
+        <>
         <Animated.View style={position.getLayout()}>
             <View style={styles.ball} />
         </Animated.View>
+        <Button title="Reanimate" onPress={() => setReanimate(prev => !prev)} />
+        </>
     )
 }
 
