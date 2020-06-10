@@ -25,6 +25,7 @@ const Ball = () => {
 
     }, [])
 
+    // reanimate 
     React.useEffect(() => {
         if (reanimate) {
             Animated.spring(position, {
