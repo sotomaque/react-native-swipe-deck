@@ -20,7 +20,8 @@ const Ball = () => {
 
         // animate position, from default, to (200, 500)
         Animated.spring(position, {
-            toValue: { x: 200, y: 700 }
+            toValue: { x: 200, y: 700 },
+            duration: 500
         }).start();
 
     }, [])
